@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Sudoku{% endblock %}
+
+{% block board %}
+    <table class="board">
+        <form>
+            {% for row in range(nums) %}
+                <tr>
+                    {% for column in range(nums) %}
+                    <td>
+                        <div class="boardCell">
+                            <input type="number" class="boardCell" id="{{[row, column]}}" name="{{[row, column]}}" required>
+                        </div>
+                    </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </form>
+    </table>
+{% endblock %}
+
+{% block controls %}
+<div class="controls">
+    <div class="centered">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#startOverModal">
+            Start Over
+        </button>
+        
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newGameModal">
+            New Game
+        </button>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hintModal">
+            Hint
+        </button>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#solveItModal">
+            Solve It
+        </button>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CheckAnswersModal">
+            Check Answers
+        </button>
+    </div>
+</div>
+
+<!-- Start Over Modal -->
+<div class="modal fade" id="startOverModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modal-dialog-centered">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Start Over</h5>
+        </div>
+
+        <form id="startOver" action="/startover" method="post" novalidate>
+            <div class="modal-body">
+                <p>All your hard work will be deleted. <br> Are you sure you want to start over?</p>
+                <div>
+                    <input type="text" hidden value="yes"></button>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+            <button type="submit" class="btn btn-secondary">Yes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- New Game Modal -->
+<div class="modal fade" id="newGameModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modal-dialog-centered">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Game</h5>
+        </div>
+
+        <div class="modal-body">
+            <p>You are about to start new puzzle. You cannot come back and solve this one.<br> Are you sure you want to continue?</p>
+        </div>
+        
+        <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+        <a href="/" class="btn btn-secondary">Yes</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+    <!-- Hint Modal -->
+<div class="modal fade" id="hintModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modal-dialog-centered">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Need Help?</h5>
+        </div>
+
+        <div class="modal-body">
+            <p>This action will reveal a number in one random cell.<br> Are you sure you want to continue?</p>
+        </div>
+        
+        <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+        <a href="/" class="btn btn-secondary">Yes</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+<!-- Solve It Modal -->
+<div class="modal fade" id="solveItModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-dialog-centered">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Spoiler Alert</h5>
+        </div>
+
+        <div class="modal-body">
+            <p>Computer will solve this puzzle for you.<br> Are you sure you want to see answers to this puzzle?</p>
+        </div>
+        
+        <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+        <a href="/" class="btn btn-secondary">Yes</a>
+        </div>
+
+        </div>
+    </div>
+    </div>
+
+
+<!-- Check Answer Modal -->
+<div class="modal fade" id="CheckAnswersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-dialog-centered">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">All Done?</h5>
+        </div>
+
+        <div class="modal-body">
+            <p>Do you want to see if you solved puzzle correctly?</p>
+        </div>
+        
+        <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+        <a href="/" class="btn btn-secondary">Yes</a>
+        </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}

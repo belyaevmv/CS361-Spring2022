@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Sudoku Difficulty{% endblock %}
+{%block difficulty_modal %}
+ <!-- Add Modal -->
+ <div class="modal" id="difficulty_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Game!</h5>
+        </div>
+
+        <div class="modal-body">
+          <a href="https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/">How to Play</a>
+
+          <form id="difficulty" action="/sudoku" method="post" novalidate>
+
+            <p>
+              <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGridSize" aria-expanded="false" aria-controls="collapseExample">
+                Grid Size
+              </button>
+            </p>
+            <div class="collapse" id="collapseGridSize">
+              <div class="card card-body">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+
+                  <input type="radio" class="btn-check" name="Size" id="Simple" autocomplete="off" value="6" >
+                  <label class="btn btn-outline-primary" for="Simple">Simple <br> 6x6</label>
+                
+                  <input type="radio" class="btn-check" name="Size" id="Classic" autocomplete="off" value="9" checked >
+                  <label class="btn btn-outline-primary" for="Classic"> Classic <br> 9x9</label>
+
+                  <input type="radio" class="btn-check" name="Size" id="Advanced" autocomplete="off" value="12">
+                  <label class="btn btn-outline-primary" for="Advanced">Advanced<br> 12x12</label>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDifficulty" aria-expanded="false" aria-controls="collapseExample">
+                Difficulty
+              </button>
+            </p>
+
+            <div class="collapse" id="collapseDifficulty">
+              <div class="card card-body">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="Difficulty" id="Easy" autocomplete="off" >
+                  <label class="btn btn-outline-primary" for="Easy">Easy</label>
+                
+                  <input type="radio" class="btn-check" name="Difficulty" id="Medium" autocomplete="off" checked>
+                  <label class="btn btn-outline-primary" for="Medium">Medium</label>
+                
+                  <input type="radio" class="btn-check" name="Difficulty" id="Hard" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="Hard">Hard</label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal-footer justify-content-center">
+                <button type="submit" class="btn btn-primary">Start Game!</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{%endblock%}
+
+{% block difficulty_script %}
+<script>
+    $(document).ready(function(){
+        console.log("window is loaded")
+        $("#difficulty_modal").modal("show")
+    })
+</script>
+{%endblock%}

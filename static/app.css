@@ -1,0 +1,65 @@
+.modal-content{
+    text-align: center;
+    width: 100% ;
+}
+.modal-title {
+    text-align: center;
+    width: 100%;
+}
+.modal-footer {
+    text-align: center;
+    width: 100%;
+}
+
+.board{
+    border-width: 2pt;
+    border-color: blue;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+}
+
+.table-cell{
+    display:table-cell;
+    vertical-align:middle;
+    height:100%;
+    width:100%;
+}
+
+td{
+    width: 0.5in;
+}
+tr{
+    height: 0.5in;
+    line-height: 0.5in;
+}
+.boardCell{
+    width: 100%;
+}
+
+tr:nth-child(3n) {
+    border: 5pt;
+    border-color: blue;
+}
+
+td:nth-child(3n) {
+    border: 5pt;
+    border-color: blue;
+}
+
+.controls{
+    width: 100%;
+    margin-top: 0.25in;
+    position: relative;
+}
+.centered{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.centered button{
+    margin-top: .125in;
+}
