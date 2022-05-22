@@ -5,12 +5,18 @@
 {% block board %}
     <table class="board">
         <form>
-            {% for row in range(nums) %}
-                <tr>
-                    {% for column in range(nums) %}
+            {% for row in range(size) %}
+                <tr class="row:{{row}}">
+                    {% for column in range(size) %}
                     <td>
-                        <div class="boardCell">
-                            <input type="number" class="boardCell" id="{{[row, column]}}" name="{{[row, column]}}" required>
+                        <div class="column">
+                            {% if puzzleBoard[row][column] != 0 %} 
+                                    <input type="number" class="column-disabled" id="{{row}}" name="{{column}}" 
+                                    value="{{puzzleBoard[row][column]}}" disabled >
+                            {% else %}
+                                    <input type="number" class="column-active" id="{{row}}" name="{{column}}" value="" 
+                                    required min="1" max="16">
+                            {% endif %}
                         </div>
                     </td>
                     {% endfor %}
@@ -143,16 +149,55 @@
             <h5 class="modal-title" id="exampleModalLabel">All Done?</h5>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body" id="checkAnswerBodyModal">
             <p>Do you want to see if you solved puzzle correctly?</p>
         </div>
         
         <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
-        <a href="/" class="btn btn-secondary">Yes</a>
+        <button type="button" class="btn btn-secondary" id="checkAnswer" onclick="checkAnswers()";>Yes</button>
         </div>
 
         </div>
     </div>
     </div>
 {% endblock %}
+
+
+{% block form_validation%}
+<!-- Script for form validation-->
+<script>
+
+    // Get all empty cells
+    const emptyCells  = document.getElementsByClassName('column-active');
+    // Get solved board
+    const solvedBoard = "{{solutionBoard}}"
+    console.log(solvedBoard)
+    console.log(emptyCells)
+
+    function checkAnswers(solvedBoard, emptyCells){
+        console.log("button has been pressed")
+        const valid = true
+        const modalBody = document.getElementById('checkAnswerBodyModal')
+        for (const cell in emptyCells){
+            if (cell.textContent === solvedBoard[cell.id][cell.name] ){
+                valid = true
+            } else {
+                valid = false
+            }
+            if (!(valid)){
+                modalBody.textContent = "Oh no there are errors. Check your Answer"
+                console.log(false)
+                break
+            } 
+        }
+        modalBody.textContent = "YAY! You got it!"
+        console.log(true)
+    };
+
+    
+   
+
+    </script>
+
+{%endblock%}

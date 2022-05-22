@@ -1,3 +1,15 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .modal-content{
     text-align: center;
     width: 100% ;
@@ -16,8 +28,35 @@
     border-color: blue;
     margin-left: auto;
     margin-right: auto;
-    margin-top: auto;
+    margin-top: 1in;
 }
+
+table{
+    border-collapse: collapse;
+}
+.column{
+    height: 0.5in;
+    width: 0.5in;
+}
+
+
+.column-disabled{
+    height: 0.5in;
+    width: 0.5in;
+    background-color: lightgrey;
+    text-align: center;
+    font-weight: bolder;
+    color: blue;
+}
+
+.column-active{
+    height: 0.5in;
+    width: 0.5in;
+    background-color: white;
+    text-align: center;
+    color: gray;
+}
+
 
 .table-cell{
     display:table-cell;
@@ -27,7 +66,7 @@
 }
 
 td{
-    width: 0.5in;
+    padding: 0;
 }
 tr{
     height: 0.5in;
@@ -38,7 +77,7 @@ tr{
 }
 
 tr:nth-child(3n) {
-    border: 5pt;
+    border: 2pt;
     border-color: blue;
 }
 

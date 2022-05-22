@@ -1,38 +1,42 @@
-from flask import Flask, render_template, redirect
+import json
+import mimetypes
+from flask import Flask, render_template, redirect, jsonify, Response
 from flask import request
+from flask_cors import CORS, cross_origin
+import time
+import Sudoku_Board
+import Sudoku_Obstructer
 import time
 
 app = Flask(__name__)
+CORS(app)
 
 
 # Routes
 
-@app.route('/', methods=['POST','GET'])
+@app.route('/sudoku/API/<string:size>/<string:difficulty>')
+def game_generator(size, difficulty):
+    if difficulty not in ["Easy", "Medium", "Hard"]:
+        return "Error: Invalid Difficulty. Accepted diffuculties are: Easy, Medum, Hard" 
 
-def root():
-        return render_template('sudoku_diffuculty.html')
+    size = int(size)
+    if int(size) not in [4, 9, 16]:
+        return "Error: Invalid Size. Accepted size range is: 4, 9, 16" 
 
-@app.route('/sudoku', methods=['POST','GET'])
-def game():
-    sizes = {"6": 6, "9":9, "12":12 }
-    if request.method == "GET":
-        return redirect('/')
+    start_board = time.time()
+    solutionBoard = Sudoku_Board.create_board(size)
+    end_board = time.time()
 
-    if request.method == "POST":
-        print(request.form)
-        size = request.form['Size']
-        nums = sizes[size]
-        return render_template ('sudoku_board.html', nums = nums)
+    start_puzzle = time.time()
+    puzzleBoard = Sudoku_Obstructer.obstruct_sudoku_board(solutionBoard, difficulty)
+    end_puzzle = time.time()
 
-@app.route('/startover', methods=['POST','GET'])
-def startover():
-    if request.method == "GET":
-        return render_template ('sudoku_startover.html')
-
-    if request.method == "POST":
-        return "Oops the page is under construction. TryAgain Later"
-        #return render_template ('sudoku_board.html')
-
+    response = app.response_class(
+    response=json.dumps({"solvedBoard" : solutionBoard, "puzzleBoard": puzzleBoard}),
+    status=200,
+    mimetype='application/json'
+    )
+    return response
 
 
 # Listener
